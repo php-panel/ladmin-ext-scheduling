@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Scheduling;
+namespace Ladmin\Scheduling;
 
 /*
  * Plugin:        StreamlineFoundation
@@ -316,7 +316,7 @@ class CronSchedule
             return false;
         }
 
-        return $arrDt[4].'-'.(strlen($arrDt[3]) == 1 ? '0' : '').$arrDt[3].'-'.(strlen($arrDt[2]) == 1 ? '0' : '').$arrDt[2].' '.(strlen($arrDt[1]) == 1 ? '0' : '').$arrDt[1].':'.(strlen($arrDt[0]) == 1 ? '0' : '').$arrDt[0].':00';
+        return $arrDt[4] . '-' . (strlen($arrDt[3]) == 1 ? '0' : '') . $arrDt[3] . '-' . (strlen($arrDt[2]) == 1 ? '0' : '') . $arrDt[2] . ' ' . (strlen($arrDt[1]) == 1 ? '0' : '') . $arrDt[1] . ':' . (strlen($arrDt[0]) == 1 ? '0' : '') . $arrDt[0] . ':00';
     }
 
     //
@@ -346,7 +346,7 @@ class CronSchedule
             return false;
         }
         // Day of week
-        if (!array_key_exists(date('w', strtotime($arrDT[4].'-'.$arrDT[3].'-'.$arrDT[2])), $this->_daysOfWeek)) {
+        if (!array_key_exists(date('w', strtotime($arrDT[4] . '-' . $arrDT[3] . '-' . $arrDT[2])), $this->_daysOfWeek)) {
             return false;
         }
         // Month
@@ -429,7 +429,7 @@ class CronSchedule
 
             // Advance minute, hour, date, month and year while overflowing.
 
-            $daysInThisMonth = date('t', strtotime($arrDT[4].'-'.$arrDT[3]));
+            $daysInThisMonth = date('t', strtotime($arrDT[4] . '-' . $arrDT[3]));
             if ($this->advanceItem($this->_minutes, 0, 59, $arrDT[0])) {
                 if ($this->advanceItem($this->_hours, 0, 23, $arrDT[1])) {
                     if ($this->advanceItem($this->_daysOfMonth, 0, $daysInThisMonth, $arrDT[2])) {
@@ -605,7 +605,7 @@ class CronSchedule
 
             // Recede minute, hour, date, month and year while overflowing.
 
-            $daysInPreviousMonth = date('t', strtotime('-1 month', strtotime($arrDT[4].'-'.$arrDT[3])));
+            $daysInPreviousMonth = date('t', strtotime('-1 month', strtotime($arrDT[4] . '-' . $arrDT[3])));
             if ($this->recedeItem($this->_minutes, 0, 59, $arrDT[0])) {
                 if ($this->recedeItem($this->_hours, 0, 23, $arrDT[1])) {
                     if ($this->recedeItem($this->_daysOfMonth, 0, $daysInPreviousMonth, $arrDT[2])) {
@@ -1034,7 +1034,7 @@ class CronSchedule
 
     final private function natlangPad2($number)
     {
-        return (strlen($number) == 1 ? '0' : '').$number;
+        return (strlen($number) == 1 ? '0' : '') . $number;
     }
 
     final private function natlangApply($id, $p1 = false, $p2 = false, $p3 = false, $p4 = false, $p5 = false, $p6 = false)
@@ -1082,7 +1082,7 @@ class CronSchedule
 
         $txt = '';
         for ($index = 0; $index < count($arrIntervals); $index++) {
-            $txt .= ($index == 0 ? '' : ($index == (count($arrIntervals) - 1) ? ' '.$this->natlangApply('separator_and').' ' : ', ')).$arrIntervals[$index];
+            $txt .= ($index == 0 ? '' : ($index == (count($arrIntervals) - 1) ? ' ' . $this->natlangApply('separator_and') . ' ' : ', ')) . $arrIntervals[$index];
         }
 
         return $txt;
@@ -1100,13 +1100,13 @@ class CronSchedule
             if ($elem['number1'] == 0) {
                 return $this->natlangApply('elemMin: at_the_hour');
             } else {
-                return $this->natlangApply('elemMin: after_the_hour_every_X_minute'.($elem['number1'] == 1 ? '' : '_plural'), $elem['number1']);
+                return $this->natlangApply('elemMin: after_the_hour_every_X_minute' . ($elem['number1'] == 1 ? '' : '_plural'), $elem['number1']);
             }
         }
 
-        $txt = $this->natlangApply('elemMin: every_consecutive_minute'.($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
+        $txt = $this->natlangApply('elemMin: every_consecutive_minute' . ($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
         if (($elem['number1'] != $this->_cronMinutes['rangeMin']) || ($elem['number2'] != $this->_cronMinutes['rangeMax'])) {
-            $txt .= ' ('.$this->natlangApply('elemMin: between_X_and_Y', $this->natlangApply('ordinal: '.$elem['number1']), $this->natlangApply('ordinal: '.$elem['number2'])).')';
+            $txt .= ' (' . $this->natlangApply('elemMin: between_X_and_Y', $this->natlangApply('ordinal: ' . $elem['number1']), $this->natlangApply('ordinal: ' . $elem['number2'])) . ')';
         }
 
         return $txt;
@@ -1129,13 +1129,13 @@ class CronSchedule
         }
 
         if ($asBetween) {
-            $txt = $this->natlangApply('elemHour: in_the_60_minutes_past_'.($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
+            $txt = $this->natlangApply('elemHour: in_the_60_minutes_past_' . ($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
         } else {
-            $txt = $this->natlangApply('elemHour: past_every_consecutive_'.($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
+            $txt = $this->natlangApply('elemHour: past_every_consecutive_' . ($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
         }
 
         if (($elem['number1'] != $this->_cronHours['rangeMin']) || ($elem['number2'] != $this->_cronHours['rangeMax'])) {
-            $txt .= ' ('.$this->natlangApply('elemHour: between_X:00_and_Y:59', $elem['number1'], $elem['number2']).')';
+            $txt .= ' (' . $this->natlangApply('elemHour: between_X:00_and_Y:59', $elem['number1'], $elem['number2']) . ')';
         }
 
         return $txt;
@@ -1150,12 +1150,12 @@ class CronSchedule
     final private function natlangElementDayOfMonth($elem)
     {
         if (!$elem['hasInterval']) {
-            return $this->natlangApply('elemDOM: the_X', $this->natlangApply('ordinal: '.$elem['number1']));
+            return $this->natlangApply('elemDOM: the_X', $this->natlangApply('ordinal: ' . $elem['number1']));
         }
 
-        $txt = $this->natlangApply('elemDOM: every_consecutive_day'.($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
+        $txt = $this->natlangApply('elemDOM: every_consecutive_day' . ($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
         if (($elem['number1'] != $this->_cronHours['rangeMin']) || ($elem['number2'] != $this->_cronHours['rangeMax'])) {
-            $txt .= ' ('.$this->natlangApply('elemDOM: between_the_Xth_and_Yth', $this->natlangApply('ordinal: '.$elem['number1']), $this->natlangApply('ordinal: '.$elem['number2'])).')';
+            $txt .= ' (' . $this->natlangApply('elemDOM: between_the_Xth_and_Yth', $this->natlangApply('ordinal: ' . $elem['number1']), $this->natlangApply('ordinal: ' . $elem['number2'])) . ')';
         }
 
         return $txt;
@@ -1170,12 +1170,12 @@ class CronSchedule
     final private function natlangElementMonth($elem)
     {
         if (!$elem['hasInterval']) {
-            return $this->natlangApply('elemMonth: every_X', $this->natlangApply('month: '.$elem['number1']));
+            return $this->natlangApply('elemMonth: every_X', $this->natlangApply('month: ' . $elem['number1']));
         }
 
-        $txt = $this->natlangApply('elemMonth: every_consecutive_month'.($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
+        $txt = $this->natlangApply('elemMonth: every_consecutive_month' . ($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
         if (($elem['number1'] != $this->_cronMonths['rangeMin']) || ($elem['number2'] != $this->_cronMonths['rangeMax'])) {
-            $txt .= ' ('.$this->natlangApply('elemMonth: between_X_and_Y', $this->natlangApply('month: '.$elem['number1']), $this->natlangApply('month: '.$elem['number2'])).')';
+            $txt .= ' (' . $this->natlangApply('elemMonth: between_X_and_Y', $this->natlangApply('month: ' . $elem['number1']), $this->natlangApply('month: ' . $elem['number2'])) . ')';
         }
 
         return $txt;
@@ -1193,9 +1193,9 @@ class CronSchedule
             return $elem['number1'];
         }
 
-        $txt = $this->natlangApply('elemYear: every_consecutive_year'.($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
+        $txt = $this->natlangApply('elemYear: every_consecutive_year' . ($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
         if (($elem['number1'] != $this->_cronMonths['rangeMin']) || ($elem['number2'] != $this->_cronMonths['rangeMax'])) {
-            $txt .= ' ('.$this->natlangApply('elemYear: from_X_through_Y', $elem['number1'], $elem['number2']).')';
+            $txt .= ' (' . $this->natlangApply('elemYear: from_X_through_Y', $elem['number1'], $elem['number2']) . ')';
         }
 
         return $txt;
@@ -1235,7 +1235,7 @@ class CronSchedule
         $classMinutes = $this->getClass($this->_cronMinutes);
         $classHours = $this->getClass($this->_cronHours);
 
-        switch ($classMinutes.$classHours) {
+        switch ($classMinutes . $classHours) {
 
             // Special case: Unspecified date + Unspecified month
             //
@@ -1272,7 +1272,7 @@ class CronSchedule
 
             case '01':
             case '02':
-                $txtTime = $txtMinutes[$classMinutes].' '.$txtHours[$classHours]['between'];
+                $txtTime = $txtMinutes[$classMinutes] . ' ' . $txtHours[$classHours]['between'];
                 $switchForceDateExplaination = true;
                 break;
 
@@ -1287,12 +1287,12 @@ class CronSchedule
             case '12':
             case '22':
             case '21':
-                $txtTime = $txtMinutes[$classMinutes].' '.$txtHours[$classHours]['past'];
+                $txtTime = $txtMinutes[$classMinutes] . ' ' . $txtHours[$classHours]['past'];
                 $switchForceDateExplaination = true;
                 break;
 
             default:
-                $txtTime = $txtMinutes[$classMinutes].' '.$txtHours[$classHours];
+                $txtTime = $txtMinutes[$classMinutes] . ' ' . $txtHours[$classHours];
                 break;
         }
 
@@ -1300,12 +1300,12 @@ class CronSchedule
 
         $txtDaysOfMonth = [];
         $txtDaysOfMonth[0] = '';
-        $txtDaysOfMonth[1] = $this->natlangApply('elemDOM: on_the_X', $this->natlangApply('ordinal: '.$this->_cronDaysOfMonth['elements'][0]['number1']));
+        $txtDaysOfMonth[1] = $this->natlangApply('elemDOM: on_the_X', $this->natlangApply('ordinal: ' . $this->_cronDaysOfMonth['elements'][0]['number1']));
         $txtDaysOfMonth[2] = $this->natlangApply('elemDOM: on_X', $this->natlangRange($this->_cronDaysOfMonth, [$this, 'natlangElementDayOfMonth']));
 
         $txtMonths = [];
         $txtMonths[0] = $this->natlangApply('elemMonth: of_every_month');
-        $txtMonths[1] = $this->natlangApply('elemMonth: during_every_X', $this->natlangApply('month: '.$this->_cronMonths['elements'][0]['number1']));
+        $txtMonths[1] = $this->natlangApply('elemMonth: during_every_X', $this->natlangApply('month: ' . $this->_cronMonths['elements'][0]['number1']));
         $txtMonths[2] = $this->natlangApply('elemMonth: during_X', $this->natlangRange($this->_cronMonths, [$this, 'natlangElementMonth']));
 
         $classDaysOfMonth = $this->getClass($this->_cronDaysOfMonth);
@@ -1315,7 +1315,7 @@ class CronSchedule
             $switchDaysOfWeekAreExcluding = false;
         }
 
-        switch ($classDaysOfMonth.$classMonths) {
+        switch ($classDaysOfMonth . $classMonths) {
 
             // Special case: Unspecified date + Unspecified month
             //
@@ -1333,7 +1333,7 @@ class CronSchedule
                 break;
 
             default:
-                $txtDate = ' '.$txtDaysOfMonth[$classDaysOfMonth].' '.$txtMonths[$classMonths];
+                $txtDate = ' ' . $txtDaysOfMonth[$classDaysOfMonth] . ' ' . $txtMonths[$classMonths];
                 break;
         }
 
@@ -1342,8 +1342,8 @@ class CronSchedule
         if ($this->_cronYears) {
             $txtYears = [];
             $txtYears[0] = '';
-            $txtYears[1] = ' '.$this->natlangApply('elemYear: in_X', $this->_cronYears['elements'][0]['number1']);
-            $txtYears[2] = ' '.$this->natlangApply('elemYear: in_X', $this->natlangRange($this->_cronYears, [$this, 'natlangElementYear']));
+            $txtYears[1] = ' ' . $this->natlangApply('elemYear: in_X', $this->_cronYears['elements'][0]['number1']);
+            $txtYears[2] = ' ' . $this->natlangApply('elemYear: in_X', $this->natlangRange($this->_cronYears, [$this, 'natlangElementYear']));
 
             $classYears = $this->getClass($this->_cronYears);
             $txtYear = $txtYears[$classYears];
@@ -1363,7 +1363,7 @@ class CronSchedule
         }
         if ($collectDays == 127) {    // * all days
             if (!$switchDaysOfWeekAreExcluding) {
-                $txtDays = ' '.$this->natlangApply('elemDOM: on_every_day');
+                $txtDays = ' ' . $this->natlangApply('elemDOM: on_every_day');
             } else {
                 $txtDays = '';
             }
@@ -1376,25 +1376,25 @@ class CronSchedule
             }
             $txtDays = '';
             for ($index = 0; $index < count($arrDays); $index++) {
-                $txtDays .= ($index == 0 ? '' : ($index == (count($arrDays) - 1) ? ' '.$this->natlangApply($switchDaysOfWeekAreExcluding ? 'separator_or' : 'separator_and').' ' : ', ')).$this->natlangApply('day: '.$arrDays[$index].'_plural');
+                $txtDays .= ($index == 0 ? '' : ($index == (count($arrDays) - 1) ? ' ' . $this->natlangApply($switchDaysOfWeekAreExcluding ? 'separator_or' : 'separator_and') . ' ' : ', ')) . $this->natlangApply('day: ' . $arrDays[$index] . '_plural');
             }
             if ($switchDaysOfWeekAreExcluding) {
-                $txtDays = ' '.$this->natlangApply('elemDOW: but_only_on_X', $txtDays);
+                $txtDays = ' ' . $this->natlangApply('elemDOW: but_only_on_X', $txtDays);
             } else {
-                $txtDays = ' '.$this->natlangApply('elemDOW: on_X', $txtDays);
+                $txtDays = ' ' . $this->natlangApply('elemDOW: on_X', $txtDays);
             }
         }
 
-        $txtResult = ucfirst($txtTime).$txtDate.$txtDays;
+        $txtResult = ucfirst($txtTime) . $txtDate . $txtDays;
 
         if (isset($txtYear)) {
             if ($switchDaysOfWeekAreExcluding) {
-                $txtResult = ucfirst($txtTime).$txtDate.$txtYear.$txtDays;
+                $txtResult = ucfirst($txtTime) . $txtDate . $txtYear . $txtDays;
             } else {
-                $txtResult = ucfirst($txtTime).$txtDate.$txtDays.$txtYear;
+                $txtResult = ucfirst($txtTime) . $txtDate . $txtDays . $txtYear;
             }
         }
 
-        return $txtResult.'.';
+        return $txtResult . '.';
     }
 }

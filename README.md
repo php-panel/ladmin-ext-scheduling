@@ -1,9 +1,9 @@
 Scheduling task manager for laravel-admin
 ============================
 
-[![StyleCI](https://styleci.io/repos/99676857/shield?branch=master)](https://styleci.io/repos/99676857)
-[![Packagist](https://img.shields.io/packagist/l/laravel-admin-ext/scheduling.svg?maxAge=2592000)](https://packagist.org/packages/laravel-admin-ext/scheduling)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-admin-ext/scheduling.svg?style=flat-square)](https://packagist.org/packages/laravel-admin-ext/scheduling)
+
+[![Packagist](https://img.shields.io/packagist/l/php-panel/ladmin-ext-scheduling.svg)](https://packagist.org/packages/php-panel/ladmin-ext-scheduling)
+[![Total Downloads](https://img.shields.io/packagist/dt/php-panel/ladmin-ext-scheduling.svg?style=flat-square)](https://packagist.org/packages/php-panel/ladmin-ext-scheduling)
 [![Pull request welcome](https://img.shields.io/badge/pr-welcome-green.svg?style=flat-square)]()
 
 A web interface for manage task scheduling in laravel.
@@ -17,7 +17,7 @@ A web interface for manage task scheduling in laravel.
 ## Installation
 
 ```
-$ composer require laravel-admin-ext/scheduling
+$ composer require php-panel/ladmin-ext-scheduling
 
 
 $ php artisan admin:import scheduling

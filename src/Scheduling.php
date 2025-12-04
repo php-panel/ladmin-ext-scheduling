@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Scheduling;
+namespace Ladmin\Scheduling;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Extension;
+use Ladmin\Admin;
+use Ladmin\Extension;
 use Illuminate\Console\Scheduling\CallbackEvent;
 use Illuminate\Support\Str;
 
@@ -71,7 +71,7 @@ class Scheduling extends Extension
 
             return [
                 'type' => 'artisan',
-                'name' => 'artisan '.implode(' ', array_slice($exploded, 2)),
+                'name' => 'artisan ' . implode(' ', array_slice($exploded, 2)),
             ];
         }
 
@@ -80,7 +80,7 @@ class Scheduling extends Extension
 
             return [
                 'type' => 'artisan',
-                'name' => 'artisan '.implode(' ', array_slice($exploded, 2)),
+                'name' => 'artisan ' . implode(' ', array_slice($exploded, 2)),
             ];
         }
 
